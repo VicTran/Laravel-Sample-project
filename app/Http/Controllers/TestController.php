@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\EmailNotProvidedException;
+use App\Widget;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class TestController extends Controller
 {
@@ -13,8 +16,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $beatles = ['John', 'Paul', 'George', 'Ringo']; 
-        return view('test.index', compact('beatles'));
+        throw new EmailNotProvidedException('facebook');
     }
 
     /**
@@ -35,7 +37,13 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $this->validate($request, [
+                'name' => 'required|unique:widgets|string|max:30',
+            ]);
+            $widget = Widget::create(['name' => $request->name]);
+            $widget->save();
+            alert()->success('Congrats!', 'You made a Widget');
+            return Redirect::route('widget.index');
     }
 
     /**

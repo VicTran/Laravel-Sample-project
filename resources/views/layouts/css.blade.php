@@ -1,5 +1,8 @@
 <!-- Styles -->
 <link href="/css/app.css" rel="stylesheet">
+<!--sweet alert  -->
+<link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
+
 <style>
     body{
         padding-top: 65px;
