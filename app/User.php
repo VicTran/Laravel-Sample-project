@@ -2,6 +2,7 @@
 
 namespace App;
 
+
 use App\Http\AuthTraits\OwnsRecord;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -37,8 +38,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Widget'); 
     }
 
-    public function isAdmin() 
-    {
+    public function socialProviders() {
+        return $this->hasMany('App\SocialProvider'); 
+    }
+
+    public function isAdmin() {
         return Auth::user()->is_admin == 1; 
     }
 
@@ -47,4 +51,5 @@ class User extends Authenticatable
     }
 
 }
+
 
