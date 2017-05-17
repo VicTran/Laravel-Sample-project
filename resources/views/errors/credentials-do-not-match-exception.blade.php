@@ -1,4 +1,3 @@
-
 @extends('layouts.master')
 
 @section('content')
@@ -8,8 +7,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
 
-        <strong>Oh Snap!</strong> Your social provider,  {{ $exception->getMessage() }}, did not provide an email.
-        Please check the settings on your social Provider's account and try again.
+        <strong>Oh Snap!</strong> {{ $exception->getMessage() }} Credentials Do Not Match...
 
     </div>
 

@@ -8,8 +8,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
 
-        <strong>Oh Snap!</strong> Your social provider,  {{ $exception->getMessage() }}, did not provide an email.
-        Please check the settings on your social Provider's account and try again.
+        <strong>Oh Snap!</strong> {{ $exception->getMessage() }} Email Already In System.  Please log in using the login form and then sync accounts.
 
     </div>
 

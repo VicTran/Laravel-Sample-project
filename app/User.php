@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -31,4 +32,18 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Widget'); 
     }
+
+    public function socialProviders() {
+        return $this->hasMany('App\SocialProvider'); 
+    }
+
+    public function isAdmin() {
+        return Auth::user()->is_admin == 1; 
+    }
+
+    public function isActiveStatus() {
+        return Auth::user()->status_id == 10;
+     }
+
+
 }
