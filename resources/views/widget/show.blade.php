@@ -41,11 +41,13 @@
                 <td> <a href="/widget/{{ $widget->id }}/edit">
                         {{ $widget->name }}</a></td>
                 <td>{{ $widget->created_at }}</td>
+                    <td> <a href="/widget/{{ $widget->id }}/edit">
 
-                <td> <a href="/widget/{{ $widget->id }}/edit">
+                            <button type="button" class="btn btn-default">
 
-                        <button type="button" class="btn btn-default">Edit</button></a></td>
+                                Edit
 
+                            </button></a></td>
                 <td>
 
                     <div class="form-group">
@@ -74,11 +76,7 @@
         function ConfirmDelete()
         {
             var x = confirm("Are you sure you want to delete?");
-            if (x){
-                return true;
-            } else {
-                return false;
-            }
+            return x;
         }
     </script>
 @endsection

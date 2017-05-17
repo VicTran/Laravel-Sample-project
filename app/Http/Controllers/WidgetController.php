@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UnauthorizedException;
+use App\Http\AuthTraits\OwnsRecord;
 use App\Widget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,11 +11,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class WidgetController extends Controller
 {
+    use OwnsRecord;
 
-    public function __construct() 
-    {
-        $this->middleware('auth', ['except' => ['index', 'show']] );
+    public function __construct() {
+       $this->middleware('auth', ['except' => 'index'] );
+       $this->middleware('admin', ['except' => ['index', 'show']] );
     }
+
 
     /**
      * Display a listing of the resource.
@@ -85,9 +89,12 @@ class WidgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Widget $widget) {
+    public function edit($id)
+    {
+        $widget = Widget::findOrFail($id);
         return view('widget.edit', compact('widget')); 
     }
+
 
 
     /**
@@ -97,22 +104,19 @@ class WidgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-public function update(Request $request, Widget $widget)
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:40|unique:widgets,name,' .$widget->id
+            $this->validate($request, [
+                'name' => 'required|string|max:30|unique:widgets,name,' .$id
+            ]);
+            $widget = Widget::findOrFail($id);
+            $slug = str_slug($request->name, "-");
+            $widget->update(['name' => $request->name,
+                             'slug' => $slug,
+                             'user_id' => Auth::id()]);
+            alert()->success('Congrats!', 'You updated a widget');
+            return Redirect::route('widget.show', ['widget' => $widget, 'slug' =>$slug]);
 
-        ]);
-
-        $slug = str_slug($request->name, "-");
-
-        $widget->update(['name' => $request->name,
-                         'slug' => $slug,
-                         'user_id' => Auth::id()]);
-
-        alert()->success('Congrats!', 'You updated a widget');
-
-        return Redirect::route('widget.show', ['widget' => $widget, 'slug' =>$slug]);
     }
 
     /**

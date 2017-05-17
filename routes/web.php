@@ -24,4 +24,10 @@ Route::get('widget/create',  'WidgetController@create')->name('widget.create');
 Route::get('widget/{widget}-{slug?}','WidgetController@show')->name('widget.show');
 Route::resource('widget', 'WidgetController', ['except' => ['show', 'create']]);
 
+// Admin route
+Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::get('terms-of-service', 'PagesController@terms');
+Route::get('privacy', 'PagesController@privacy');
+
 
