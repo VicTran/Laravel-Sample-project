@@ -14,8 +14,7 @@ class WidgetController extends Controller
     use OwnsRecord;
 
     public function __construct() {
-       $this->middleware('auth', ['except' => 'index'] );
-       $this->middleware('admin', ['except' => ['index', 'show']] );
+
     }
 
 

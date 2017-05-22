@@ -37,6 +37,6 @@ Route::get('terms-of-service', 'PagesController@terms');
 Route::get('test', 'TestController@index')->middleware(['auth', 'throttle']);
 // Widget routes
 Route::get('widget/create',  'WidgetController@create')->name('widget.create');
-Route::get('widget/{id}-{slug?}', 'WidgetController@show')->name('widget.show');
+Route::get('widget/{widget}-{slug?}', 'WidgetController@show')->name('widget.show');
 Route::resource('widget', 'WidgetController', ['except' => ['show', 'create']]);
 
